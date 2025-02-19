@@ -50,7 +50,21 @@ func (event Event) Update() error {
 	defer statement.Close()
 
 	_, err = statement.Exec(event.Name, event.Description, event.Location, event.DateTime, event.ID)
+	return err
+}
 
+func (event Event) Delete() error {
+	query := `
+	DELETE FROM Events
+	WHERE id = ?
+	`
+	statement, err := db.DB.Prepare(query)
+	if err != nil {
+		return err
+	}
+	defer statement.Close()
+
+	_, err = statement.Exec(event.ID)
 	return err
 }
 
