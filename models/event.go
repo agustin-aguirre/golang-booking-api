@@ -37,6 +37,23 @@ func (event Event) Persist() error {
 	return err
 }
 
+func (event Event) Update() error {
+	query := `
+	UPDATE Events
+	SET name = ?, description = ?, location = ?, datetime = ?
+	WHERE id = ?
+	`
+	statement, err := db.DB.Prepare(query)
+	if err != nil {
+		return err
+	}
+	defer statement.Close()
+
+	_, err = statement.Exec(event.Name, event.Description, event.Location, event.DateTime, event.ID)
+
+	return err
+}
+
 func GetAllEvents() ([]Event, error) {
 	query := "SELECT * FROM Events"
 	rows, err := db.DB.Query(query)
