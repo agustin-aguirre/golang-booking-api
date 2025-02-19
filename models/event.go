@@ -14,6 +14,7 @@ type Event struct {
 var events = []Event{}
 
 func (event Event) Persist() {
+	///query := `INSERT INTO Events`
 	events = append(events, event)
 }
 
