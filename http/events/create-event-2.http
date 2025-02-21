@@ -1,5 +1,6 @@
 POST http://localhost:8080/events
 Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFndXNfMDAyQGV4YW1wbGUuY29tIiwiZXhwaXJhdGlvbiI6MTc0MDE4MzcxMCwidXNlcklkIjoxfQ.yI32KfaTrY2Wc1kIaZkHlVb-aXrNSDPvcF21XEYpZHk
 
 {
     "name": "Ezequiel",
