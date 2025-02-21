@@ -12,10 +12,10 @@ type Event struct {
 	Description string    `binding:"required"`
 	Location    string    `binding:"required"`
 	DateTime    time.Time `binding:"required"`
-	UserID      int
+	UserID      int64
 }
 
-func (event Event) Persist() error {
+func (event *Event) Persist() error {
 	query := `
 	INSERT INTO Events(name, description, location, datetime, user_id)
 	VALUES (?, ?, ?, ?, ?)

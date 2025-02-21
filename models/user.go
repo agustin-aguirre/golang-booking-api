@@ -13,7 +13,7 @@ type User struct {
 	Password string `binding:"required"`
 }
 
-func (user User) Persist() error {
+func (user *User) Persist() error {
 	query := `
 	INSERT INTO Users(email, password)
 	VALUES (?, ?)
