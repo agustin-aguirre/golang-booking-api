@@ -12,4 +12,6 @@ func RegisterRoutes(server *gin.Engine) {
 	server.DELETE("/events/:id", DeleteEvent)
 
 	server.POST("/signup", Signup)
+	server.POST("/login", Login)
+	server.GET("/users", GetAllUsers)
 }
