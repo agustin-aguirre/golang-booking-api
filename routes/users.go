@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"example.com/rest-api/models"
+	"example.com/rest-api/utils"
 	"github.com/gin-gonic/gin"
 )
 
@@ -39,13 +40,19 @@ func Login(context *gin.Context) {
 		return
 	}
 
-	context.JSON(http.StatusOK, gin.H{"message": "Authetication succeded."})
+	signedToken, err := utils.GenerateToken(user.ID, user.Email)
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"message": fmt.Sprintf("Could not authenticate user because: %v.", err)})
+		return
+	}
+
+	context.JSON(http.StatusOK, gin.H{"message": "Authetication succeded.", "token": signedToken})
 }
 
 func GetAllUsers(context *gin.Context) {
 	users, err := models.GetAllUsers()
 	if err != nil {
-		context.JSON(http.StatusInternalServerError, gin.H{"message": fmt.Sprintf("Could not fetch events because: %v\nTry again later.", err)})
+		context.JSON(http.StatusInternalServerError, gin.H{"message": fmt.Sprintf("Could not fetch users because: %v\nTry again later.", err)})
 		return
 	}
 	context.JSON(http.StatusOK, users)

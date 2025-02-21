@@ -39,12 +39,12 @@ func (user User) Persist() error {
 	return err
 }
 
-func (user User) ValidateCredentials() error {
-	query := "SELECT password FROM Users WHERE email = ?"
+func (user *User) ValidateCredentials() error {
+	query := "SELECT id, password FROM Users WHERE email = ?"
 	row := db.DB.QueryRow(query, user.Email)
 
 	var fetchedPassword string
-	err := row.Scan(&fetchedPassword)
+	err := row.Scan(&user.ID, &fetchedPassword)
 	if err != nil {
 		return errors.New("invalid credentials")
 	}
